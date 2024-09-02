@@ -5,6 +5,7 @@ let msgContainer=document.querySelector('.msg-container')
 let msg=document.querySelector('#msg')
 
 let turnO= true;
+let count=0;
 
 //we creating win patterns
 const winPatterns=[
@@ -29,15 +30,33 @@ boxes.forEach(box=>{
             turnO=true;
         }
         box.disabled=true;
+        count++;
         box.style.backgroundColor="white"
 
-        checkWinner();
+        let isWinner=checkWinner();
+        if(count==9 && !isWinner){
+            gameDraw();
+        }
     }
 )
 })
 
+function gameDraw(){
+    msg.innerText='Game was a Draw.';
+    msg.style.color = 'darkred';
+    msg.style.fontSize = '30px';
+    msg.style.fontWeight = 'bold';
+    msg.style.border = 'none';
+    msg.style.backgroundColor = 'salmon';
+    msg.style.height = '70px';
+    msg.style.padding = '15px';
+    msgContainer.classList.remove('hide');
+    disableBoxes();
+}
+
 function  resetGame(){
     turn0=true;
+    count=0;
     enableBoxes();
     msgContainer.classList.add('hide');
     
